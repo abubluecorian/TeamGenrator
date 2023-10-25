@@ -8,12 +8,19 @@ import { Component } from '@angular/core';
 export class AppComponent {
  newMemberName = "";
  members : string [] = [];
+ errorMessage= ""
  onInput(member :string){
   this.newMemberName = member;
 
  }
  addMember(){
+  if(!this.newMemberName){
+    this.errorMessage ="Name cant be empty"
+    return;
+  }
+  this.errorMessage = "";
   this.members.push(this.newMemberName);
+  this.newMemberName = ""
   console.log(this.members);
  }
 }
