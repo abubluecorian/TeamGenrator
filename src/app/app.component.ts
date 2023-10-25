@@ -20,6 +20,8 @@ export class AppComponent {
   }
   this.errorMessage = "";
   this.members.push(this.newMemberName);
+  // addd new commit 
+  
   this.newMemberName = ""
   console.log(this.members);
  }
