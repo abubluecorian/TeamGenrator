@@ -3,26 +3,58 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
- newMemberName = "";
- members : string [] = [];
- errorMessage= ""
- onInput(member :string){
-  this.newMemberName = member;
+  members: string[] = [];
+  newMemberText = '';
+  teams: string[][] = [];
+  numberOfTeams: '' | number = '';
+  errorMessage = '';
 
- }
- addMember(){
-  if(!this.newMemberName){
-    this.errorMessage ="Name cant be empty"
-    return;
+  onInput(value: string) {
+    this.newMemberText = value;
   }
-  this.errorMessage = "";
-  this.members.push(this.newMemberName);
-  // addd new commit 
-  
-  this.newMemberName = ""
-  console.log(this.members);
- }
+
+  onTeamSizeInput(value: string) {
+    this.numberOfTeams = Number(value);
+  }
+
+  onClick() {
+    if (!this.newMemberText.length) {
+      this.errorMessage = "Name can't be empty";
+      return;
+    }
+
+    this.errorMessage = '';
+    this.members.push(this.newMemberText);
+    this.newMemberText = '';
+  }
+
+  generateTeams() {
+    this.teams = [];
+    const allMembers = [...this.members];
+
+    if (this.members.length < this.numberOfTeams) {
+      this.errorMessage = 'Not enough members';
+      return;
+    }
+
+    this.errorMessage = '';
+
+    while (allMembers.length) {
+      for (let i = 0; i < this.numberOfTeams; i++) {
+        const randomIndex = Math.floor(Math.random() * allMembers.length);
+        const member = allMembers.splice(randomIndex, 1)[0];
+        if (this.teams[i]) {
+          this.teams[i].push(member);
+        } else {
+          this.teams[i] = [member];
+        }
+      }
+    }
+
+    this.members = [];
+    this.numberOfTeams = '';
+  }
 }

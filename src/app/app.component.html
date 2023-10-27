@@ -1,34 +1,50 @@
 <div class="container">
-  <div>
-    <h1>
-      Team Generator 
-    </h1>
-    <ul class="list">
-         <!-- use of structural directives (ngfor)  only changes the structure of the HTML-->
-   <li *ngFor="let member of members">
-{{member}}
-   </li>
-    </ul>
-  </div>
-  <div class="add-members-container">
-    <input #addMemberInput type="text" placeholder="Name" 
-    (input)="onInput(addMemberInput.value)"
-   [value]="newMemberName"
-    />
-    <button (click)="addMember()">
-      Add
-    </button>
-  </div>
-  <div class="input-container">
- 
-    <input class="" type="text" placeholder="# of teams"/>
-    <button>
-      Generate
-    </button>
-  </div>
-  <!-- again *ngif is the structural directive -->
-  <p *ngIf="errorMessage">
-    {{errorMessage}}
-  </p>
+  <div class="ui card">
+    <h1>Team Generator</h1>
 
-</div>
+    <ul class="list">
+      <li *ngFor="let member of members">{{ member }}</li>
+    </ul>
+
+    <div class="add-members-container">
+      <input
+        #peopleInput
+        type="text"
+        (input)="onInput(peopleInput.value)"
+        [value]="newMemberText"
+        placeholder="Name"
+      />
+      <button (click)="onClick()">Add</button>
+    </div>
+
+    <div class="input-container">
+      <input
+        #teamSizeInput
+        type="number"
+        placeholder="# of teams"
+        [value]="numberOfTeams"
+        (input)="onTeamSizeInput(teamSizeInput.value)"
+      />
+      <button (click)="generateTeams()">Generate</button>
+    </div>
+    <p *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</p>
+  </div>
+
+  <div class="teams-container" *ngIf="teams.length">
+    <div
+      *ngFor="let team of teams; let i = index" class="team-container"></div>
+    <h3>
+Team  {{  + 1 }}
+    </h3>
+    <ul>
+      <li *ngFor="let member of teams">
+{{ member }}
+      </li>
+    </ul>
+    
+  
+  </div>
+  </div>
+<!-- </div> -->
+<!-- 
+<router-outlet></router-outlet> -->
