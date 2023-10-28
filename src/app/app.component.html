@@ -31,20 +31,12 @@
   </div>
 
   <div class="teams-container" *ngIf="teams.length">
-    <div
-      *ngFor="let team of teams; let i = index" class="team-container"></div>
-    <h3>
-Team  {{  + 1 }}
-    </h3>
-    <ul>
-      <li *ngFor="let member of teams">
-{{ member }}
-      </li>
-    </ul>
-    
-  
+    <app-team
+      *ngFor="let team of teams; let i = index"
+      [team]="team"
+      [index]="i"
+    ></app-team>
   </div>
-  </div>
-<!-- </div> -->
-<!-- 
-<router-outlet></router-outlet> -->
+</div>
+
+<router-outlet></router-outlet>
